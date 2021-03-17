@@ -153,6 +153,7 @@
                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUxZTY0NDg5YzI2ZjAwMTU3ZjljMjYiLCJpYXQiOjE2MTU5ODAxMDAsImV4cCI6MTYxNzE4OTcwMH0.XDnvS2jr7NqoFCzFQnJ4VlmdwlI3DJTTkZo9lD1Gxg4",
             },
           }
+
         );
 
         if (response.ok) {
@@ -160,6 +161,12 @@
         } else {
           alert("There was an error while adding the product");
         }
+
+        document.querySelector("#name").value=""
+        document.querySelector("#description").value=""
+        document.querySelector("#brand").value=""
+        document.querySelector("#imageUrl").value=""
+        document.querySelector("#price").value=""
       };
     </script>
   </body>
