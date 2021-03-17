@@ -89,7 +89,7 @@
         if (data.length > 0) {
           data.forEach((item) => {
             mainRow.innerHTML += `
-                                    <div class="col col-md-6 my-5">
+                                    <div class="card-wrapper col col-md-6 my-5" id="${item._id}"">
                                     <div class="card mb-3">
                                         <div class="row no-gutters">
                                         <div class="col-md-4">
@@ -106,7 +106,7 @@
                                                 <p class="card-text font-weight-bold">$ ${item.price}.99</p>
                                                 <div class="d-flex justify-content-between">
                                                 <a href="#" class="btn btn-md btn-success mr-2">Add to cart</a>
-                                                <a href="#" class="btn btn-md btn-danger">Skip</a>
+                                                <a href="#" class="btn btn-md btn-danger">Delete</a>
                                                 </div>
                                             </div>
                                             </div>
@@ -114,10 +114,32 @@
                                         </div>
                                     </div>
                                   </div>`;
+            document
+              .querySelectorAll(".btn-danger")
+              .forEach((item) => item.addEventListener("click", deleteItem));
           });
         } else {
           mainRow.innerHTML = `<h1>No products  to show</h1>`;
         }
+      };
+      const deleteItem = async (e) => {
+        e.preventDefault();
+        let cardWrapper = e.target.closest(".card-wrapper");
+        let productId = cardWrapper.id;
+        console.log(productId);
+        cardWrapper.remove();
+        const response = await fetch(
+          `https://striveschool-api.herokuapp.com/api/product/${productId}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUxZTY0NDg5YzI2ZjAwMTU3ZjljMjYiLCJpYXQiOjE2MTU5ODAxMDAsImV4cCI6MTYxNzE4OTcwMH0.XDnvS2jr7NqoFCzFQnJ4VlmdwlI3DJTTkZo9lD1Gxg4",
+            },
+          }
+        );
+        const data = await response.json();
+        console.log(data);
       };
     </script>
   </body>
